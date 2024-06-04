@@ -1,21 +1,21 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import ThemeToggle from './ThemeToggle';
 import './Layout.css';
 
 const Layout = () => (
-  <div>
+  <div className="layout">
     <header>
-      <h1>React - Homework 5</h1>
+      <h1>My App</h1>
       <Navbar />
+      <ThemeToggle />
     </header>
-    <div className="container">
-      <main>
-        <Outlet />
-      </main>
-    </div>
+    <main>
+      <Outlet />
+    </main>
     <footer>
-      <p>&copy; 2024 HW5</p>
+      <p>&copy; 2024 My App</p>
     </footer>
   </div>
 );

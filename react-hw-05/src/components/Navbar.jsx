@@ -14,6 +14,11 @@ const Navbar = () => (
           Users
         </NavLink>
       </li>
+      <li>
+        <NavLink to="/about">
+          About Us
+        </NavLink>
+      </li>
     </ul>
   </nav>
 );
