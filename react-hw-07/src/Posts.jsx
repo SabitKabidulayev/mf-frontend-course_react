@@ -6,6 +6,8 @@ const Posts = () => {
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts.posts);
   const [newPostTitle, setNewPostTitle] = useState('');
+  const [editPostId, setEditPostId] = useState(null);
+  const [editPostTitle, setEditPostTitle] = useState('');
 
   const handleAddPost = () => {
     if (newPostTitle.trim()) {
@@ -20,8 +22,15 @@ const Posts = () => {
   };
 
   const handleUpdatePost = (id) => {
-    const updatedPost = { id, title: 'Updated Post' };
+    const updatedPost = { id, title: editPostTitle };
     dispatch(updatePost(updatedPost));
+    setEditPostId(null);
+    setEditPostTitle('');
+  };
+
+  const startEditingPost = (post) => {
+    setEditPostId(post.id);
+    setEditPostTitle(post.title);
   };
 
   return (
@@ -37,9 +46,23 @@ const Posts = () => {
       <ul>
         {posts.map(post => (
           <li key={post.id}>
-            {post.title}
-            <button onClick={() => handleUpdatePost(post.id)}>Update</button>
-            <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+            {editPostId === post.id ? (
+              <div>
+                <input
+                  type="text"
+                  value={editPostTitle}
+                  onChange={(e) => setEditPostTitle(e.target.value)}
+                />
+                <button onClick={() => handleUpdatePost(post.id)}>Save</button>
+                <button onClick={() => setEditPostId(null)}>Cancel</button>
+              </div>
+            ) : (
+              <div>
+                {post.title}
+                <button onClick={() => startEditingPost(post)}>Update</button>
+                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+              </div>
+            )}
           </li>
         ))}
       </ul>
